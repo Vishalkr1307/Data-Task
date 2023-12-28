@@ -10,6 +10,10 @@ app.use(express.json())
 app.use("/auth",User)
 app.use("/products",Product)
 
+app.get("/",(req,res)=>{
+    return res.send("Welcome to the cat")
+})
+
 
 
 
