@@ -172,16 +172,22 @@ router.patch("/forgetpassword/resetpassword/:id",async (req,res)=>{
 
 
         const id=req?.params?.id
-        const {resetPassword}=req.body
-        const hashPassword=bcrypt.hashSync(resetPassword,8)
+        const {resetPassword,confirmPassword}=req.body
+        if(resetPassword===confirmPassword){
+            const hashPassword=bcrypt.hashSync(resetPassword,8)
+            const user=await User.findByIdAndUpdate(id,{password:hashPassword})
 
-        const user=await User.findByIdAndUpdate(id,{password:hashPassword})
-        if(user){
-            return res.status(200).send({
-                status:"password successfully updated"
-            })
-
+            if(user){
+                return res.status(200).send({
+                    status:"password successfully updated"
+                })
+    
+            }
         }
+        else{
+            return res.status(400).send("resetPassword and confirmPassword doesnot match")
+        }
+
 
 
 
