@@ -5,7 +5,7 @@ const productSchema=new mongoose.Schema({
     tasks_status:{type:String,required:true},
     tags:[{type:String,required:true}],
     subTasks:[{subTasksTittle:{type:String,required:true},status:{type:Boolean,default:false}}],
-    image_urls:{type:String,required:true}
+    // image_urls:{type:String,required:true}
 
 },{
     versionKey:false,

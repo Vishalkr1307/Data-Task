@@ -13,7 +13,6 @@ const verifyToken = (token) => {
 
 module.exports = async (req, res, next) => {
   try {
-    
     if (!req?.headers?.authorization)
       return res.status(400).send("please provide authorization token");
     const bearToken = req?.headers?.authorization;

@@ -13,7 +13,7 @@ const initState={
 
 const reducer=(store,{type,payload})=>{
   switch(type){
-    case "email":
+    case "email": 
       return {...store,email:payload}
     case "password":
       return {...store,password:payload}
@@ -36,7 +36,6 @@ const Login = () => {
     dispatch(postLoginData(text))
     
   }
-  // console.log(data,isError,isLoading)
 
   useEffect(()=>{
     if(data.status && data.userId )
@@ -56,7 +55,7 @@ const Login = () => {
         </Box>
         <Box>
           <Stack spacing={4} bg={useColorModeValue("white")} rounded={'xl'} boxShadow={'xl'} px={4} py={8}>
-            {isError && !data.status && <Alert status='error'>
+            {isError && !isLoading && !data.status && <Alert status='error'>
               <AlertIcon/>
               {isError}
               </Alert>}

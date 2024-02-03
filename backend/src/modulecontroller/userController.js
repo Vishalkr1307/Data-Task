@@ -113,7 +113,7 @@ router.post("/otpverification/:id",async (req,res)=>{
                 const user= await User.findByIdAndUpdate(id,{verify:true})
                 const token=newToken(user)
 
-                return res.status(200).send({status:"Your otp has verified successfully",token})
+                return res.status(200).send({status:"Your otp has verified successfully",token,user})
 
             }
             

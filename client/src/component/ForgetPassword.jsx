@@ -29,8 +29,8 @@ const ForgetPassword = () => {
 
   },[data.status,data.userId])
   return (
-    <Box bg={bgColor} minH={'100vh'} display={'flex'} justifyContent={'center'} alignItems={'center'} >
-      <Stack spacing={4}>
+    <Box bg={bgColor} minH={'100vh'} display={'flex'}  >
+      <Stack spacing={4} minW={'100vw'} justifyContent={'center'} alignItems={'center'}>
         <Box>
           <Heading>Forget-password</Heading>
         </Box>

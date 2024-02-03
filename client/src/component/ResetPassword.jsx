@@ -30,6 +30,7 @@ const ResetPassword = () => {
     const {id}=useParams()
     const navigate=useNavigate()
     const location=useLocation()
+    console.log(text)
     
     const handleButton=()=>{
         if(text){
@@ -46,8 +47,8 @@ const ResetPassword = () => {
     },[resetStatus])
 
   return (
-    <Box minH={'100vh'} bg={bgColor} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-        <Stack spacing={6}>
+    <Box minH={'100vh'} bg={bgColor} display={'flex'} >
+        <Stack spacing={6} minW={'100vw'}justifyContent={'center'} alignItems={'center'}>
             <Box>
                 <Heading>Reset Password</Heading>
             </Box>
@@ -63,7 +64,7 @@ const ResetPassword = () => {
                     <Input type='text' onChange={(e)=>setText({type:"resetPassword",payload:e.target.value})}/>
                 </FormControl>
                 <FormControl>
-                    <FormLabel>Confrom New-Password</FormLabel>
+                    <FormLabel>Confirm New-Password</FormLabel>
                     <Input type='text' onChange={(e)=>setText({type:"confirmPassword",payload:e.target.value})}/>
                 </FormControl>
                 <Button colorScheme='teal' onClick={handleButton} >Reset-Password</Button>

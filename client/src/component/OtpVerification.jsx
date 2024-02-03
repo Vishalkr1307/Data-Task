@@ -5,7 +5,7 @@ import { postOtpVerificationData, postResendOtpData } from '../redux/auth/action
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 const OtpVerification = () => {
-  const {isAuth,data,otpStatus,token,isError}=useSelector((store)=>store.auth)
+  const {isAuth,isLoading,data,otpStatus,token,isError}=useSelector((store)=>store.auth)
   const bgColor=useColorModeValue("gray.300","white.100")
   const dispatch=useDispatch()
   const {id}=useParams()
@@ -26,22 +26,23 @@ const OtpVerification = () => {
   }
   useEffect(()=>{
     if(otpStatus){
-      navigate("/home",{replace:true,state:{from:location}})
+      navigate(location?.state?.from?.pathname=="/auth/forgetpassword"?`/auth/forgetpassword/resetpassword/${id}`:"/",{replace:true,state:{from:location}})
     }
 
 
   },[otpStatus])
-  console.log(location)
+  console.log(!otpStatus,"helo")
+  
   return (
-    <Box minH={'100vh'} display={'flex'} justifyContent={'center'} alignItems={'center'} >
-        <Stack spacing={6}>
+    <Box minH={'100vh'} display={'flex'}  >
+        <Stack minW={'100vw'} spacing={6} justifyContent={'center'} alignItems={'center'}>
             <Box>
               <Heading textAlign={'center'}>Otp sent Your email <Text color="blue">{data?.email}</Text>  </Heading>
             </Box>
             
             <Box>
               <Stack spacing={4}>
-                {isError && !otpStatus && <Alert status='error'>
+                {isError && !isLoading && !otpStatus && <Alert status='error'>
                   <AlertIcon/>
                   {isError}
                   </Alert>}

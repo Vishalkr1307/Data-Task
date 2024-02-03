@@ -47,7 +47,7 @@ const Register = () => {
     }
 
   },[data?._id])
-  console.log(data)
+  
   return (
     <Box bg={bgColor} width={'100vw'} minH={'100vh'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
       

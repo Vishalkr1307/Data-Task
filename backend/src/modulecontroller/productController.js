@@ -3,24 +3,42 @@ const router = express.Router();
 const Product = require("..//module/product");
 const { body, validationResult } = require("express-validator");
 const authinacte = require("..//middleware/authentication");
-const {uploadSingle,uploadMultiple}=require("..//middleware/upload")
-const tittleChain=()=>body("tittle").notEmpty()
-const descriptionChain=()=>body("description").notEmpty()
-const tasks_statusChain=()=>body("tasks_status").notEmpty()
+// const {uploadSingle,uploadMultiple}=require("..//middleware/upload")
+const tittleChain=()=>body("tittle").notEmpty().withMessage("description is not empty")
+const descriptionChain=()=>body("description").notEmpty().withMessage("description is not empty")
+const tasks_statusChain=()=>body("tasks_status").notEmpty().withMessage("tasksStaus is not empty")
+const tagChain=()=>body("tags").notEmpty().withMessage("tasksStaus is not empty")
+const formatOfError=require("..//util/valadation")
 
 
 
 
-router.post("/addTask",tittleChain(),descriptionChain(),tasks_statusChain(), authinacte,uploadSingle("image_urls"), async (req, res) => {
+
+router.post("/addTask",tittleChain(),descriptionChain(),tasks_statusChain(),tagChain(),authinacte, async (req, res) => {
   try {
-    
-    const product = await Product.create({...req.body,"image_urls":req.file.path});
-    return res.status(200).send(product);
+    const error=validationResult(req)
+    if(!error.isEmpty()){
+      return res.status(400).send(formatOfError(error.array()).join(","))
+
+    }
+    const product = await Product.create(req.body);
+    return res.status(200).send({product,status:"Task has added"});
   } catch (err) {
     
     return res.status(400).send("Bad request");
   }
 });
+
+router.get("/allTask",async (req,res)=>{
+  try{
+    const product=await Product.find().limit(5).lean().exec()
+    return res.status(200).send(product)
+
+  }
+  catch(err){
+    return res.status(400).send("Bad Request")
+  }
+})
 
 router.get("/getTask", async (req, res) => {
   try {

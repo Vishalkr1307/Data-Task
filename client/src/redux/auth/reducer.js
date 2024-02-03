@@ -1,13 +1,15 @@
+import { getLocaldata, postLocalData } from "../../util/storage"
 import { ADD_FORGET_PASSWORD_FAILURE, ADD_FORGET_PASSWORD_REQUEST, ADD_FORGET_PASSWORD_SUCCESS, ADD_LOGIN_FAILURE, ADD_LOGIN_REQUEST, ADD_LOGIN_SUCCESS, ADD_OTP_VERIFICATION_FAILURE, ADD_OTP_VERIFICATION_REQUEST, ADD_OTP_VERIFICATION_SUCCESS, ADD_REGISTER_FAILURE, ADD_REGISTER_REQUEST, ADD_REGISTER_SUCCESS, ADD_RESEND_OTP_FAILURE, ADD_RESEND_OTP_REQUEST, ADD_RESEND_OTP_SUCCESS, ADD_RESET_PASSWORD_FAILURE, ADD_RESET_PASSWORD_REQUEST, ADD_RESET_PASSWORD_SUCCESS } from "./actionType"
 
 const init={
     isLoading:false,
     isError:false,
-    isAuth:false,
-    token:"",
+    isAuth:getLocaldata("token")?true:false,
+    token:getLocaldata("token")|| "",
     data:{},
     otpStatus:"",
-    resetStatus:""
+    resetStatus:"",
+    user:getLocaldata("user")||{}
 
 }
 
@@ -16,13 +18,17 @@ const init={
         case ADD_LOGIN_REQUEST:
             return {...store,isLoading:true}
         case ADD_LOGIN_SUCCESS:
+            
             return {...store,isLoading:false,data:payload}
         case ADD_LOGIN_FAILURE:
+            console.log(payload)
             return {...store,isLoading:false,isError:payload}
         case ADD_OTP_VERIFICATION_REQUEST:
             return {...store,isLoading:true}
         case ADD_OTP_VERIFICATION_SUCCESS:
-            return {...store,isLoading:false,isAuth:true,otpStatus:payload.status,token:payload.token}
+            postLocalData("token",payload.token)
+            postLocalData("user",payload.user)
+            return {...store,isLoading:false,isAuth:true,otpStatus:payload.status,token:payload.token,user:payload.user}
         case ADD_OTP_VERIFICATION_FAILURE:
             return {...store,isLoading:false,isError:payload}
         case ADD_RESEND_OTP_REQUEST:
@@ -46,6 +52,7 @@ const init={
         case ADD_REGISTER_REQUEST:
             return {...store,isLoading:true}
         case ADD_REGISTER_SUCCESS:
+            
             return {...store,isLoading:false,data:payload}
         case ADD_REGISTER_FAILURE:
             return {...store,isLoading:false,isError:payload}

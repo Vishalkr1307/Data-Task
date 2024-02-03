@@ -85,7 +85,7 @@ export const postLoginData=(payload)=>(dispatch)=>{
 
 export const postRegisterData=(payload)=>(dispatch)=>{
     dispatch(addregisterRequest())
-    axios.post("/auth/register",payload).then((res)=>addregisterSucces(res.data)).catch((err)=>addRegisterFailure(err.response.data))
+    axios.post("/auth/register",payload).then((res)=>dispatch(addregisterSucces(res.data))).catch((err)=>dispatch(addRegisterFailure(err.response.data)))
 }
 
 export const postOtpVerificationData=(id,payload)=>(disptach)=>{
@@ -100,7 +100,7 @@ export const postForgetPasswordData=(payload)=>(dispatch)=>{
 
 export const postResetPassword=(id,payload)=>(dispatch)=>{
     dispatch(addResetPasswordRequest())
-    axios.patch(`/auth/resetpassword/${id}`, payload).then((res)=>dispatch(addResetPasswordSuccess(res.data))).catch((err)=>dispatch(addResetPasswordFailure(err.response.data)))
+    axios.patch(`/auth/forgetpassword/resetpassword/${id}`, payload).then((res)=>dispatch(addResetPasswordSuccess(res.data))).catch((err)=>dispatch(addResetPasswordFailure(err.response.data)))
 
 }
 
