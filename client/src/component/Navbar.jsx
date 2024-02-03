@@ -64,7 +64,11 @@ const Navbar = () => {
                     <MenuList>
                         <MenuItem>{user?.name ||""}</MenuItem>
                         <MenuItem>{user?.email ||""}</MenuItem>
-                        <MenuItem>Logout</MenuItem>
+                        <MenuItem onClick={()=>{
+                            localStorage.clear("token")
+                            localStorage.clear("user")
+                            navigate("/auth/login",{replace:true,state:{from:location}})
+                        }}>Logout</MenuItem>
                     </MenuList>
                 </Menu>
                 </Stack>:null}

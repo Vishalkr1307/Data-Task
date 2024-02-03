@@ -26,7 +26,7 @@ const OtpVerification = () => {
   }
   useEffect(()=>{
     if(otpStatus){
-      navigate(location?.state?.from?.pathname=="/auth/forgetpassword"?`/auth/forgetpassword/resetpassword/${id}`:"/",{replace:true,state:{from:location}})
+      navigate(location?.state?.from?.pathname=="/auth/login"?"/":location?.state?.from?.pathname=="/auth/forgetpassword"?`/auth/forgetpassword/resetpassword/${id}`:"/auth/login",{replace:true,state:{from:location}})
     }
 
 

@@ -30,7 +30,7 @@ const ResetPassword = () => {
     const {id}=useParams()
     const navigate=useNavigate()
     const location=useLocation()
-    console.log(text)
+    
     
     const handleButton=()=>{
         if(text){
